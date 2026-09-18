@@ -1,7 +1,8 @@
 class Erlik < Formula
   desc "Apple Silicon (ARM64) Native Activity & Focus Intelligence Tracker for macOS"
   homepage "https://github.com/halilertekin/erlik"
-  url "https://github.com/halilertekin/erlik/archive/refs/tags/v3.1.0.tar.gz"
+  url "https://github.com/halilertekin/erlik/archive/refs/tags/v3.2.2.tar.gz"
+  sha256 "8c6451df13d5eab2abcf84d6375d255054613da5a6483ab9736a74fe9d139b7c"
   license "MIT"
   head "https://github.com/halilertekin/erlik.git", branch: "main"
 
@@ -10,6 +11,7 @@ class Erlik < Formula
   depends_on "node"
 
   def install
+    system "swiftc", "-O", "-target", "arm64-apple-macos14.0", "erlik_unified.swift", "-o", "erlik-app"
     system "swiftc", "-O", "-target", "arm64-apple-macos14.0", "erlik_core.swift", "-o", "erlik-daemon"
     system "swiftc", "-O", "-target", "arm64-apple-macos14.0", "erlik_menubar.swift", "-o", "erlik-menubar"
     
