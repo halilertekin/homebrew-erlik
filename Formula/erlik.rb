@@ -1,9 +1,9 @@
 class Erlik < Formula
   desc "Apple Silicon (ARM64) Native Activity & Focus Intelligence Tracker for macOS"
-  homepage "https://github.com/halilertekin/erlik"
-  url "https://github.com/halilertekin/erlik/archive/refs/tags/v3.3.0.tar.gz"
-  sha256 "454deca3f82cdad2512d6fcc29bf1701dfcdaf441043ce6f89f8249865545b41"
-  license "MIT"
+  homepage "https://erlik.be"
+  url "https://registry.npmjs.org/erlik/-/erlik-3.5.6.tgz",
+      sha256: "03eecf00a1ced9ea226152b490bc0965d3962f6bdf29b9cd48c5d154b6c5e8b5"
+  license :all
   head "https://github.com/halilertekin/erlik.git", branch: "main"
 
   depends_on :macos
@@ -11,29 +11,22 @@ class Erlik < Formula
   depends_on "node"
 
   def install
-    system "swiftc", "-O", "-target", "arm64-apple-macos14.0", "erlik_unified.swift", "-o", "erlik-app"
-    system "swiftc", "-O", "-target", "arm64-apple-macos14.0", "erlik_core.swift", "-o", "erlik-daemon"
-    system "swiftc", "-O", "-target", "arm64-apple-macos14.0", "erlik_menubar.swift", "-o", "erlik-menubar"
-    
-    libexec.install Dir["*"]
-    bin.install_symlink libexec/"bin/erlik-cli.js" => "erlik"
+    libexec.install "erlik-app", "erlik.sh", "index.html", "clipboard_panel.html"
+    (libexec/"bin").mkpath
+    bin.install_symlink libexec/"bin/erlik-cli.js" => "erlik-cli"
+    libexec.install "assets"
+    (bin/"erlik").write_env_script(libexec/"erlik.sh", { ERLIK_HOME: libexec })
   end
 
   def caveats
     <<~EOS
-      🐺 ERLÍK kuruldu!
-      Başlatmak için:
-        erlik start
-      Durdurmak için:
-        erlik stop
-      Durum kontrolü:
-        erlik status
-      
-      Web Paneli: http://localhost:5757
-    EOS
-  end
+      🐺 ERLÍK v3.5.6 installed!
+      Start:  erlik start   (or run #{libexec}/erlik.sh start)
+      Stop:   erlik stop
+      Status: erlik status
 
-  test do
-    system "#{bin}/erlik", "status"
+      Pro features (Clipboard HUD + AI-agent intelligence) unlock with a
+      license key from the dashboard 🔑 — https://erlik.be/#pricing
+    EOS
   end
 end
