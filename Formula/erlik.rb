@@ -1,8 +1,8 @@
 class Erlik < Formula
   desc "Apple Silicon (ARM64) Native Activity & Focus Intelligence Tracker for macOS"
   homepage "https://github.com/halilertekin/erlik"
-  url "https://registry.npmjs.org/erlik/-/erlik-3.5.8.tgz"
-  sha256 "251a1a19a3ebbbc139659e7e786d8252018b5e7185250c93520a1ac8273a4997"
+  url "https://registry.npmjs.org/erlik/-/erlik-3.5.9.tgz"
+  sha256 "e93e95a200ea416e509a0f2f81f942cf67fcaf6c5bfadc2692bc96c5ad526652"
 
   depends_on :macos
   depends_on arch: :arm64
@@ -17,7 +17,7 @@ class Erlik < Formula
 
   def caveats
     <<~EOS
-      ERLÍK v3.5.8 installed.
+      ERLÍK v3.5.9 installed.
 
       Start:    erlik start
       Stop:     erlik stop
